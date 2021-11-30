@@ -1,0 +1,21 @@
+{
+  "name": "advent-of-code-2021",
+  "author": "Max Davidson <davidsonmax@gmail.com>",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=16.13.0",
+    "npm": ">=8.1.0"
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --watch"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "jest": "^27.4.0",
+    "prettier": "~2.5.0"
+  }
+}

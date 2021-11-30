@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": ["eslint:recommended", "prettier"],
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "files": ["*.cjs"],
+      "parserOptions": {
+        "sourceType": "script"
+      }
+    }
+  ],
+  "rules": {}
+}

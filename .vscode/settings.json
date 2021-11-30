@@ -1,0 +1,11 @@
+{
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.sortImports": true
+  },
+  "jest.jestCommandLine": "npm test --silent -- --no-watch",
+  "jest.autoRun": "off"
+}
