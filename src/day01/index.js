@@ -4,6 +4,7 @@ import { lines } from "../utils.js";
  * @param {string} input
  */
 export function part1(input) {
+  // @ts-expect-error
   const nums = Uint16Array.from(lines(input), Number);
 
   let count = 0;
@@ -21,6 +22,7 @@ export function part1(input) {
  * @param {string} input
  */
 export function part2(input) {
+  // @ts-expect-error
   const nums = Uint16Array.from(lines(input), Number);
 
   let count = 0;
