@@ -45,6 +45,43 @@ export function lines(input) {
 }
 
 /**
+ * @template T
+ * @param {Iterable<T>} iterable
+ * @param {number} index
+ */
+export function nth(iterable, index) {
+  const it = iterable[Symbol.iterator]();
+  /** @type {T | undefined} */
+  let lastValue;
+  let i = 0;
+  let result = it.next();
+  while (i < index && !result.done) {
+    lastValue = result.value;
+    i += 1;
+    result = it.next();
+  }
+  return lastValue;
+}
+
+/**
+ * @template T
+ * @param {Iterable<T>} iterable
+ * @returns {T | undefined}
+ */
+export function last(iterable) {
+  return nth(iterable, Infinity);
+}
+
+/**
+ * @template T
+ * @param {Iterable<T>} iterable
+ * @returns {T | undefined}
+ */
+export function first(iterable) {
+  return nth(iterable, 1);
+}
+
+/**
  * @param {number} from
  * @param {number} to
  * @param {number} [step]
