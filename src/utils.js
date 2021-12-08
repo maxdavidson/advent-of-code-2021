@@ -88,7 +88,67 @@ export function first(iterable) {
  * @returns {Iterable<number>}
  */
 export function* range(from, to, step = 1) {
-  for (let i = from; i < to; i += step) {
-    yield i;
+  if (step > 0) {
+    for (let i = from; i < to; i += step) {
+      yield i;
+    }
+  } else if (step < 0) {
+    for (let i = from; i > to; i += step) {
+      yield i;
+    }
+  }
+}
+
+/**
+ * @template T
+ * @param {Iterable<T>} iterable
+ * @param {number=} size
+ * @returns {Generator<T[], void>}
+ */
+export function* permutations(iterable, size) {
+  const items = Array.from(iterable);
+  size ??= items.length;
+
+  if (items.length === 0 || size > items.length) {
+    return;
+  }
+
+  const indices = Array.from(range(0, items.length));
+  const cycles = Array.from(range(items.length, items.length - size, -1));
+
+  /**
+   * @param {unknown} _
+   * @param {number} index
+   */
+  const getIndexedItem = (_, index) => items[indices[index]];
+  const sizeObj = { length: size };
+
+  yield Array.from(sizeObj, getIndexedItem);
+
+  loop: for (;;) {
+    for (let cycleIndex = size - 1; cycleIndex >= 0; cycleIndex -= 1) {
+      cycles[cycleIndex] -= 1;
+      if (cycles[cycleIndex] === 0) {
+        let tmp = indices[cycleIndex];
+        for (let i = cycleIndex; i < indices.length - 1; i += 1) {
+          indices[i] = indices[i + 1];
+        }
+        indices[indices.length - 1] = tmp;
+
+        cycles[cycleIndex] = items.length - cycleIndex;
+      } else {
+        let cycle = cycles[cycleIndex];
+
+        const tmp = indices[cycleIndex];
+        indices[cycleIndex] = indices[indices.length - cycle];
+        indices[indices.length - cycle] = tmp;
+
+        yield Array.from(sizeObj, getIndexedItem);
+
+        continue loop;
+      }
+    }
+
+    return;
   }
 }
