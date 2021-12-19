@@ -100,38 +100,6 @@ export function first(iterable) {
 
 /**
  * @template T
- * @param {Iterable<T>} iterable
- * @param {(item: T) => number} getValue
- * @returns {T | undefined}
- */
-export function maxBy(iterable, getValue) {
-  /** @type {number | undefined} */
-  let maxValue = undefined;
-  /** @type {T | undefined} */
-  let maxItem = undefined;
-  for (const item of iterable) {
-    const value = getValue(item);
-    if (maxValue === undefined || maxValue > value) {
-      maxValue = value;
-      maxItem = item;
-    }
-  }
-  return maxItem;
-}
-
-/**
- * @template T
- * @param {Iterable<T>} iterable
- * @param {(item: T) => number} getValue
- * @returns {T | undefined}
- */
-export function minBy(iterable, getValue) {
-  return minBy(iterable, item => -getValue(item));
-  /** @type {number | undefined} */
-}
-
-/**
- * @template T
  * @param {T} value
  * @returns {T}
  */
