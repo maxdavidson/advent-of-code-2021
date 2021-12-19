@@ -47,6 +47,23 @@ export function lines(input) {
 /**
  * @template T
  * @param {Iterable<T>} iterable
+ * @param {number} count
+ * @returns {IterableIterator<T>}
+ */
+export function* take(iterable, count) {
+  const it = iterable[Symbol.iterator]();
+  let i = 0;
+  let result = it.next();
+  while (i < count && !result.done) {
+    yield result.value;
+    i += 1;
+    result = it.next();
+  }
+}
+
+/**
+ * @template T
+ * @param {Iterable<T>} iterable
  * @param {number} index
  */
 export function nth(iterable, index) {
