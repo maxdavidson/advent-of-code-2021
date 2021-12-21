@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { permutations, range, split } from "./utils.js";
+import { combinations, permutations, range, split } from "./utils.js";
 
 describe("split", () => {
   test.each`
@@ -82,5 +82,53 @@ describe("permutations", () => {
       ["D", "C", "A"],
       ["D", "C", "B"],
     ]);
+  });
+});
+
+describe("combinations", () => {
+  test("range(4), length 3", () => {
+    expect(Array.from(combinations(range(0, 4), 3))).toEqual([
+      [0, 1, 2],
+      [0, 1, 3],
+      [0, 2, 3],
+      [1, 2, 3],
+    ]);
+  });
+
+  test("ABCD, length 0", () => {
+    expect(Array.from(combinations("ABCD", 0))).toEqual([[]]);
+  });
+
+  test("ABCD, length 1", () => {
+    expect(Array.from(combinations("ABCD", 1))).toEqual([
+      ["A"],
+      ["B"],
+      ["C"],
+      ["D"],
+    ]);
+  });
+
+  test("ABCD, length 2", () => {
+    expect(Array.from(combinations("ABCD", 2))).toEqual([
+      ["A", "B"],
+      ["A", "C"],
+      ["A", "D"],
+      ["B", "C"],
+      ["B", "D"],
+      ["C", "D"],
+    ]);
+  });
+
+  test("ABCD, length 3", () => {
+    expect(Array.from(combinations("ABCD", 3))).toEqual([
+      ["A", "B", "C"],
+      ["A", "B", "D"],
+      ["A", "C", "D"],
+      ["B", "C", "D"],
+    ]);
+  });
+
+  test("ABCD, length 4", () => {
+    expect(Array.from(combinations("ABCD", 4))).toEqual([["A", "B", "C", "D"]]);
   });
 });

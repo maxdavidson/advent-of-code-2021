@@ -178,3 +178,51 @@ export function* permutations(iterable, size) {
     return;
   }
 }
+
+/**
+ * @template T
+ * @param {Iterable<T>} iterable
+ * @param {number} size
+ * @returns {Generator<T[], void>}
+ */
+export function* combinations(iterable, size) {
+  const items = Array.from(iterable);
+  size ??= items.length;
+
+  if (items.length === 0 || size > items.length) {
+    return;
+  }
+
+  const indices = Array.from(range(0, items.length));
+
+  /**
+   * @param {unknown} _
+   * @param {number} index
+   */
+  const getIndexedItem = (_, index) => items[indices[index]];
+  const sizeObj = { length: size };
+
+  yield Array.from(sizeObj, getIndexedItem);
+
+  loop: for (;;) {
+    let i = size - 1;
+
+    found: {
+      while (i >= 0) {
+        if (indices[i] !== i + items.length - size) {
+          break found;
+        }
+        i -= 1;
+      }
+      break loop;
+    }
+
+    indices[i] += 1;
+
+    for (let j = i + 1; j < indices.length; j += 1) {
+      indices[j] = indices[j - 1] + 1;
+    }
+
+    yield Array.from(sizeObj, getIndexedItem);
+  }
+}
